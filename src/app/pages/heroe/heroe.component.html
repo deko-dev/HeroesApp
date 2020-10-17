@@ -1,0 +1,110 @@
+
+<!-- Componente Html de la página de Héroe -->
+
+<!-- Titulo de la página -->
+<h1>Héroe <small *ngIf="!nuevo">{{ heroe.nombre }}</small></h1>
+<hr>
+
+<!-- Botón regresar ( regresa a la página principal '/heroes' ) -->
+<div class="row text-right">
+    <div class="col">
+        <button class="btn btn-danger" routerLink="/heroes" >
+            <i class="fa fa-arrow-left"></i>
+            Regresar
+        </button>
+    </div>
+</div>
+
+<!-- Formulario para recibir y cargar los datos del Héroe -->
+<div class="row animate__animated animate__fadeIn animate__faster"> <!-- inicio div del row del Formulario -->
+
+    <div class="col"> <!-- inicio div formulario -->
+
+        <!-- Se declara el formulario con la refencia #forma, 
+            y se carga el ngSubmit con el Método guardar() -->
+        <form (ngSubmit)="guardar( forma )" #forma="ngForm"> <!-- inicio etiqueta form --> 
+
+            <!-- Input donde se mostrara( en caso de que exista ) el ID
+                proporcionado por el Rest API de Firebase-->
+            <div class="form-group"> <!-- inicio div del input Firebase ID -->
+                <label>Firebase ID</label>
+                <input type="text"
+                        class="form-control"
+                        placeholder="Firebase ID"
+                        name="idFB"
+                        [(ngModel)]="heroe.id"
+                        disabled="disabled">
+                <small class="font-text text-muted">Este campo es autogenerado</small>        
+            </div> <!-- fin div del input Firebase ID -->
+
+            <!-- Input para recibir y cargar el Nombre del Héroe -->
+            <div class="form-group"> <!-- inicio div del input Nombre -->
+                <label>Nombre</label>
+                <input type="text"
+                        class="form-control"
+                        name="nombre"
+                        [(ngModel)]="heroe.nombre"
+                        placeholder="Nombre del Héroe"
+                        required>    
+            </div> <!-- fin div del input Nombre -->
+
+            <!-- Input para recibir y cargar el Poder del Héroe -->
+            <div class="form-group"> <!-- Inicio div del input Poder -->
+                <label>Poder</label>
+                <input type="text"
+                        class="form-control"
+                        name="poder"
+                        [(ngModel)]="heroe.poder"
+                        placeholder="Poder del Héroe">    
+            </div> <!-- fin div del input Poder -->
+
+            <!-- Botón para establecer el estado del Héroe( vivo = false o vivo = true ) -->
+            <div class="form-group"> <!-- inicio div del Botón Estado( vivo/muerto ) -->
+                <label>Estado</label>
+                <br>
+                
+                <!-- Se establecen dos botones para cambiar el estado del Héroe -->
+                <!-- Boton si está vivo -->
+                <button  *ngIf="heroe.vivo" 
+                         (click)="heroe.vivo = false"
+                         type="button" 
+                         class="btn btn-outline-success w-50">
+                    <i class="fa fa-smile-wink"></i>
+                    Vivo
+                </button>
+
+                <!-- Boton si está muerto -->
+                <button *ngIf="!heroe.vivo" 
+                        (click)="heroe.vivo = true"
+                        type="button" 
+                        class="btn btn-outline-danger w-50">
+                    <i class="fa fa-dizzy"></i>
+                    Muerto
+                </button>
+            </div> <!-- fin div del Botón Estado( vivo/muerto ) -->
+            <hr>
+
+
+            <div *ngIf="nuevo"
+                 class="form-group text-center"> <!-- inicio div del Botón Guardar -->
+                <button class="btn btn-primary w-25">
+                    <i class="fa fa-save"></i>
+                    Guardar
+                </button>
+            </div> <!-- fin div del Botón Guardar -->
+
+            <div *ngIf="!nuevo"
+                 class="form-group text-center"> <!-- inicio div del Botón Editar -->
+                <button class="btn btn-primary w-25">
+                    <i class="fa fa-edit"></i>
+                    Editar
+                </button>
+            </div> <!-- fin div del Botón Editar -->
+
+        </form> <!-- final etiqueta form -->
+
+
+
+    </div> <!-- fin div formulario -->
+    
+</div> <!-- fin div del row del Formulario -->
